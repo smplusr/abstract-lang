@@ -1,6 +1,8 @@
 #pragma once
 
+#include <stdbool.h>
 #include <stddef.h>
+#include "util.h"
 
 
 #define BUFF_SIZE 4096
@@ -10,6 +12,7 @@
 		{},		\
 		NULL,		\
 		STR.data,	\
+		find,		\
 		store		\
 	}
 
@@ -20,6 +23,7 @@ struct string_t {
 	char data[BUFF_SIZE],
 		*base,
 		*top;
+	char *(*find) (char *);
 	char *(*store) (char *);
 };
 

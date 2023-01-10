@@ -3,7 +3,11 @@
 
 size_t data () {
 	char str[WORD_LEN];
-	return dict.get (getword (str, STRING_END))->data;
+	getword (str, STRING_END);
+
+	return (dict.get (str))
+		? dict.get (str)->data
+		: (size_t) NULL;
 }
 
 size_t eval () {

@@ -9,10 +9,9 @@ int main (int argc, char *argv[]) {
 
 	for (size_t i = 0; i < argc; i++) {
 		char str[6] = "argv"; str[4] = ('0' + i);
-		dict.set (str, (size_t) argv[i]);
+		dict.set (string.store (str), (size_t) argv[i]);
 	}
 
 	for (; ; )
 		eval ();
-
 }

@@ -1,5 +1,5 @@
 CC	:= gcc
-CFLAGS	:= -Wall -O3
+CFLAGS	:= -Wall -Werror -O3
 
 CFILES	:= *.c */*.c
 

@@ -3,7 +3,8 @@
 
 
 
-void sysExit () { exit ((size_t) eval ()); }
+void sysSleep () { sleep ((size_t) eval ()); }
+void sysExit () { exit ((double) eval ()); }
 void sysExec () {
 	char *argv[16] = {NULL};
 	for (size_t i = 0, argc = (size_t) eval (); i <= argc; i++)

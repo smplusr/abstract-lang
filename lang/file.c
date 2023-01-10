@@ -4,11 +4,20 @@
 
 
 FILE *fileOpen () {
+	/*
 	char *name = (char *) eval (),
 	     mode[DELIM_SIZE];
 	getword (mode, STRING_END);
 
 	FILE *file = fopen (name, mode);
+	*/
+
+	char mode[1] = { stream.update (NULL) };
+	stream.update (NULL);
+
+	char *name = (char *) eval ();
+	FILE *file = fopen (name, mode);
+
 
 	if (!file || feof (file))
 		perror (NULL);
