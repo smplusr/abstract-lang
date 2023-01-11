@@ -1,0 +1,12 @@
+define real int 0
+
+define incFunc string \
+	sleep int 1
+
+	print d var real
+	define real add var real int 1
+
+	eval var incFunc
+\
+
+eval var incFunc

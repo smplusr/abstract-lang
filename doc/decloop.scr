@@ -1,0 +1,11 @@
+define tmp_var int 10000
+
+define defFunc string \
+	print d var tmp_var
+	define tmp_var sub var tmp_var int 1
+
+	if var tmp_var eval var defFunc
+	exit int 0
+\
+
+eval var defFunc

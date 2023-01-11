@@ -1,0 +1,9 @@
+define messageHello string
+" Hello world! "
+
+define printLoop string \
+	print s var messageHello
+	eval var printLoop
+\
+
+eval var printLoop
