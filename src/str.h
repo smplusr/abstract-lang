@@ -10,3 +10,7 @@
 void *strWord ();
 void *strString ();
 void strRemove ();
+
+char *strSkip ();
+char *strPiks ();
+char *strConc ();

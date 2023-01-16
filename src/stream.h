@@ -8,7 +8,7 @@
 #define init_stream(STREAM)	\
 	stream_t STREAM = {	\
 		NULL,		\
-		update,		\
+		streamUpdate,	\
 	}			\
 
 

@@ -9,8 +9,8 @@
 	dict_t DICT = {		\
 		{{NULL}},	\
 		DICT.node,	\
-		set,		\
-		get		\
+		dictSet,	\
+		dictGet		\
 	}
 
 

@@ -10,4 +10,4 @@
 
 void sysSleep (); 
 void sysExit ();
-void sysExec ();
+char *sysExec ();

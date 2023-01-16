@@ -11,9 +11,9 @@
 
 
 
-size_t var ();
-size_t eval ();
-void define ();
-bool condnot ();
-void condition ();
-void interpret ();
+size_t coreVar ();
+size_t coreEval ();
+void coreDefine ();
+bool coreNot ();
+void coreCond ();
+void coreEvaluate ();

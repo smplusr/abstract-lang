@@ -4,13 +4,17 @@
 #include <stdbool.h>
 
 #include "stream.h"
+#include "string.h"
 
 
-#define STRING_END "\xa\t "
+#define WORD_END "\xa\t "
 
 
 
 
-bool strequ (char *a, char *b);
-char *getword (char *str, char *delim);
-bool cins (char c, char *str);
+bool strequ (char *, char *);
+char *getword (char *, char *);
+bool cins (char, char *);
+char *forward (char *, size_t, char *);
+char *backward (char *, size_t, char *);
+char *concat (char *, char *);

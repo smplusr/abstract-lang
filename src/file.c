@@ -5,14 +5,13 @@
 
 FILE *fileOpen () {
 	char *name,
-	     mode[1];
+	     mode[DELIM_SIZE];
 
 	FILE *file;
 
-	*mode = stream.update (NULL);
-	stream.update (NULL);
+	getword (mode, WORD_END);
 
-	name = (char *) eval ();
+	name = (char *) coreEval ();
 	file = fopen (name, mode);
 
 	if (!file || feof (file))
@@ -25,12 +24,12 @@ FILE *fileOpen () {
 
 
 void fileClose () {
-	fclose ((FILE *) eval ());
+	fclose ((FILE *) coreEval ());
 }
 
 
 char *fileRead () {
-	FILE *file = (FILE *) eval ();
+	FILE *file = (FILE *) coreEval ();
 
 	char data[BUFF_SIZE], *str = data;
 	for (; (*str = fgetc (file)); str++)
@@ -43,9 +42,9 @@ char *fileRead () {
 
 
 void fileWrite () {
-	FILE *file = (FILE *) eval ();
-	
-	char *str = (char *) eval ();
+	FILE *file = (FILE *) coreEval ();
+	char *str = (char *) coreEval ();
+
 	for (; *str; str++) {
 		fputc (*str, file);
 		fflush (file);

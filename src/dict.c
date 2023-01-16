@@ -3,7 +3,7 @@
 
 
 
-node_t *get (char *name) {
+node_t *dictGet (char *name) {
 	node_t *ptr = dict.node;
 	for (; ptr < dict.ptr; ptr++) {
 		if (strequ (name, ptr->name))
@@ -14,7 +14,7 @@ node_t *get (char *name) {
 }
 
 
-void set (char *name, size_t data) {
+void dictSet (char *name, size_t data) {
 	node_t *tmp = dict.get (name);
 	if (tmp) {
 		tmp->data = data;	

@@ -2,7 +2,7 @@
 
 
 
-char *find (char *str) {	
+char *stringFind (char *str) {	
 	char *ptr; 
 
 	if (strequ (str, string.data))
@@ -16,7 +16,7 @@ char *find (char *str) {
 }
 
 
-char *store (char *read) {
+char *stringStore (char *read) {
 	char *rd,
 	     *ptr = string.find (read);
 
@@ -31,7 +31,7 @@ char *store (char *read) {
 }
 
 
-void delstr (char *read) {
+void stringDelstr (char *read) {
 	char *ptr = string.find (read);
 	if (!ptr) return;
 	

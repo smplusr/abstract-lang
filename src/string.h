@@ -5,16 +5,16 @@
 #include "util.h"
 
 
-#define BUFF_SIZE 4096
+#define BUFF_SIZE 4096 * 8
 
 #define init_string(STR) 	\
 	string_t STR = { 	\
 		{'\0'},		\
 		NULL,		\
 		STR.data,	\
-		find,		\
-		store,		\
-		delstr		\
+		stringFind,	\
+		stringStore,	\
+		stringDelstr	\
 	}
 
 

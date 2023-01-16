@@ -1,7 +1,10 @@
 #include "stream.h"
 
 
-char update (char *data) {
+
+
+/*char *streamBranch () { return stream.data; }*/
+char streamUpdate (char *data) {
 	if (data)
 		return (bool) (stream.data = data);
 
