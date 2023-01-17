@@ -42,4 +42,6 @@ void setInstructions () {
 	dict.set (string.store ("sleep"),	(size_t) sysSleep);
 	dict.set (string.store ("exit"),	(size_t) sysExit);
 	dict.set (string.store ("exec"),	(size_t) sysExec);
+	dict.set (string.store ("fork"),	(size_t) sysFork);
+	dict.set (string.store ("pipe"),	(size_t) sysPipe);
 }

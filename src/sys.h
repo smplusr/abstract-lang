@@ -8,6 +8,11 @@
 
 
 
+
+extern int pipefd[2]; 
+
 void sysSleep (); 
 void sysExit ();
-char *sysExec ();
+void sysExec ();
+pid_t sysFork ();
+char *sysPipe ();
