@@ -12,9 +12,10 @@
 
 
 
-bool strequ (char *, char *);
+bool strequ (const char *, const char *);
 char *getword (char *, char *);
-bool cins (char, char *);
-char *forward (char *, size_t, char *);
-char *backward (char *, size_t, char *);
-char *concat (char *, char *);
+bool cins (char, const char *);
+size_t djb2Hash (const char *str);
+char *forward (const char *, size_t, char *);
+char *backward (const char *, size_t, char *);
+char *concat (const char *, const char *);

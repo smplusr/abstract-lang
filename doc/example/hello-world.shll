@@ -1,0 +1,6 @@
+#!/bin/shll
+
+define hello string " Hello world! "
+
+print sn hello
+exit 0

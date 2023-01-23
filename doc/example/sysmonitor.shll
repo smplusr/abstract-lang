@@ -1,0 +1,28 @@
+#!/bin/shll
+
+
+print sn string
+" logging :
+	- disk usage
+	- temperature sensors status
+	- running processes
+"
+
+define loop string \
+	sleep int 1
+
+	fork exec int 0 clear
+	fork exec int 0 df
+
+	sleep int 1
+
+	fork exec int 0 sensors
+	
+	sleep int 1
+
+	fork exec int 0 ps
+	
+	eval loop
+\
+
+eval loop

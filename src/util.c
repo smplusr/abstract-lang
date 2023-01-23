@@ -3,7 +3,7 @@
 
 
 
-bool strequ (char *a, char *b) {
+bool strequ (const char *a, const char *b) {
 	for (; *a || *b; a++, b++)
 		if (*a != *b)
 			return false;
@@ -11,10 +11,9 @@ bool strequ (char *a, char *b) {
 }
 
 
-bool cins (char c, char *str) {
-	char *ptr = str;
-	for (; *ptr; ptr++)
-		if (*ptr == c)
+bool cins (char c, const char *str) {
+	for (; *str; str++)
+		if (*str == c)
 			return true;
 	return false;
 }
@@ -32,18 +31,27 @@ char *getword (char *str, char *delim) {
 	return str;
 }
 
+size_t djb2Hash (const char *str) {
+	size_t hash = 5381;
 
-char *forward (char *str, size_t cnt, char *delim) {
+	for (; *str; str++)
+		hash = ((hash << 5) + hash) + *str;
+
+	return hash;
+}
+
+
+char *forward (const char *str, size_t cnt, char *delim) {
 	for (; cins (*str, delim); ) str++;
 	for (; cnt; cnt--, str++)
 		for (; !cins (*str, delim); str++);
 
-	return str;
+	return (char *) str;
 }
 
 
-char *backward (char *base, size_t cnt, char *delim) {
-	char str[BUFF_SIZE] = "", *ptr = base;
+char *backward (const char *base, size_t cnt, char *delim) {
+	char str[BUFF_SIZE] = "", *ptr = (char *) base;
 	size_t i;
 	for (; *ptr; ptr++);
 	for (; cins (*--ptr, delim); );
@@ -57,13 +65,13 @@ char *backward (char *base, size_t cnt, char *delim) {
 }
 
 
-char *concat (char *str1, char *str2) {
-	char str[BUFF_SIZE] = "", *ptr;
+char *concat (const char *a, const char *b) {
+	char str[BUFF_SIZE] = "";
 	size_t i = 0;
-	for (ptr = str1; *ptr && i < BUFF_SIZE; ptr++, i++)
-		str[i] = *ptr;
-	for (ptr = str2; *ptr && i < BUFF_SIZE; ptr++, i++)
-		str[i] = *ptr;
+	for (; *a && i < BUFF_SIZE; a++, i++)
+		str[i] = *a;
+	for (; *b && i < BUFF_SIZE; b++, i++)
+		str[i] = *b;
 
 	return string.store (str);
 } 

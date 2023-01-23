@@ -4,11 +4,13 @@
 
 
 size_t mathInt () {
-	char str[BUFF_SIZE];
-	return (size_t) atoi (getword (str, WORD_END));
+	char *str = (char *) coreUpdate ();
+	return (str)
+		? (size_t) atoi (str)
+		: (size_t) NULL;
 }
 
-size_t mathAdd () { return (double) coreEval () + (double) coreEval (); }
-size_t mathSub () { return (double) coreEval () - (double) coreEval (); }
-size_t mathMul () { return (double) coreEval () * (double) coreEval (); }
-size_t mathDiv () { return (double) coreEval () / (double) coreEval (); }
+size_t mathAdd () { return (double) coreUpdate () + (double) coreUpdate (); }
+size_t mathSub () { return (double) coreUpdate () - (double) coreUpdate (); }
+size_t mathMul () { return (double) coreUpdate () * (double) coreUpdate (); }
+size_t mathDiv () { return (double) coreUpdate () / (double) coreUpdate (); }

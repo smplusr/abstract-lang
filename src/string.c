@@ -1,45 +1,63 @@
 #include "string.h"
 
 
+/*
+bool stringExists (const char *str) {
+	node_t *node = string.node;
+	str_ptr_t *ptr;
+	for (; node; node = node->next) {
+		if (node->data) {
+			ptr = (str_ptr_t *) node->data;
+			if (ptr->data == str)
+				return true;
+		}
+	}
+	return false;
+}*/
 
-char *stringFind (char *str) {	
-	char *ptr; 
+str_ptr_t *stringFind (const char *str) {	
+	size_t hash = djb2Hash (str);
+	node_t *node = string.node;
+	str_ptr_t *ptr;
+	if (!node)
+		return (str_ptr_t *) NULL;
 
-	if (strequ (str, string.data))
-		return string.data;
-
-	for (ptr = string.data; ptr <= string.base; ptr++)
-		if (!*ptr)
-			if (strequ (str, ++ptr))
+	for (; node; node = node->next)
+		if (node->data) {
+			ptr = (str_ptr_t *) node->data;
+			if (ptr->hash == hash)
 				return ptr;
-	return NULL;
+		}
+
+	return (str_ptr_t *) NULL;
+
+
 }
 
+
+str_ptr_t *stringSavePtr (const char *str) {
+	str_ptr_t *ptr = (str_ptr_t *) malloc (sizeof (str_ptr_t));
+	char *strptr = (char *) malloc (strlen (str) * sizeof (str));
+
+	strcpy (strptr, str);
+
+	ptr->data = strptr;
+	ptr->hash = djb2Hash (strptr);
+
+	return ptr;
+}
 
 char *stringStore (char *read) {
-	char *rd,
-	     *ptr = string.find (read);
+	str_ptr_t *ptr = string.find (read); 
+	if (!ptr) {
+		ptr = stringSavePtr (read);
+		string.node = newNode ((size_t) ptr, string.node);
+	}
 
-	if (ptr) return ptr;
-	string.base = string.top;
-	
-	for (rd = read; *rd; rd++, string.top++)
-		*string.top = *rd;
-
-	*string.top++ = '\0';
-	return string.base;
+	return ptr->data;
 }
 
 
-void stringDelstr (char *read) {
-	char *ptr = string.find (read);
-	if (!ptr) return;
-	
-	string.top = ptr;
-
-	for (; *ptr; ptr++)
-		*ptr = '\0';
-}
 
 
 init_string (string);

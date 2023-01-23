@@ -3,40 +3,48 @@
 
 
 
-size_t coreVar () {
-	char str[WORD_LEN];
-	getword (str, WORD_END);
+/* TODO: Optimize coreUpdate functions 
+ * They are the main sources of lag and slowdowns
+ * */
 
-	return (dict.get (str))
-		? dict.get (str)->data
-		: (size_t) NULL;
+size_t coreUpdate () {
+	char *str = strWord ();
+	pair_t *pair = (pair_t *) dict.get (str);
+	return (pair)
+		? (pair->value.type == callable)
+			? (size_t) (*(void *(*) ()) pair->value.data) ()
+			: (size_t) pair->value.data
+		: (size_t) str;	
 }
 
-size_t coreEval () {
-	void *(*func) () = (*(void *(*) ()) coreVar ());
-	return (func)
-		? (size_t) func ()
-		: (size_t) NULL;
+/* Need a way to detect if a word is callable
+ * If yes, do not evaluate (otherwise SEGFAULT)
+ * Is it necessary though ?
+ * */
 
-}
+void coreEval () { stream.update ((char *) coreUpdate ()); }
 
 void coreDefine () {
-	char str[WORD_LEN],
-		*ptr = string.store (getword (str, WORD_END));
-
-	dict.set (ptr, (size_t) coreEval ());
+	char *str = strWord ();
+	dict.set (str, coreUpdate (), data);
 }
 
-bool coreNot () { return ! (bool) coreEval (); }
+
+bool coreNot () { return ! (bool) coreUpdate (); }
 
 void coreCond () {
-	((bool) coreEval ())
-		? coreEval ()
-		: coreVar ();
+	((bool) coreUpdate ())
+		? (void) coreUpdate ()
+		: (void) strWord ();
 }
 
-void coreEvaluate () {
-	stream.update ((char *) coreEval ());
+char *coreInput () {
+	char *ptr = stream.get (),
+	     str[WORD_LEN];
+
+	stream.update ("");
+	getword (str, "\n");
+	stream.update (ptr);
+
+	return string.store (str);
 }
-
-

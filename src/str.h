@@ -7,8 +7,8 @@
 
 
 
-void *strWord ();
-void *strString ();
+char *strWord ();
+char *strString ();
 void strRemove ();
 
 char *strSkip ();

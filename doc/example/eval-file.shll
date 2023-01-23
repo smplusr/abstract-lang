@@ -1,0 +1,14 @@
+#!/bin/shll
+
+define file_name hello-world
+
+
+define message string " Evaluating file : "
+print s message
+print sn file_name
+
+define file_pointer open r file_name
+define file_read read file_pointer
+
+
+eval file_read

@@ -3,15 +3,15 @@
 
 
 
-void sysSleep () { sleep ((size_t) coreEval ()); }
-void sysExit () { exit ((double) coreEval ()); }
+void sysSleep () { sleep ((size_t) coreUpdate ()); }
+void sysExit () { exit ((double) coreUpdate ()); }
 
 void sysExec () {
 	char *argv[16] = {NULL};	
-	size_t i = 0, argc = (size_t) coreEval (); 
+	size_t i = 0, argc = (size_t) coreUpdate (); 
 	
 	for (; i <= argc; i++)
-		argv[i] = (char *) coreEval ();
+		argv[i] = (char *) coreUpdate ();
 
 	if (pipefd[0])
 		dup2 (pipefd[1], STDOUT_FILENO);
@@ -29,11 +29,11 @@ pid_t sysFork () {
 		perror (NULL); 
 
 	if (!pid) {
-		coreEval ();
+		coreUpdate ();
 		return *(pid_t *) NULL;
 	}
 
-	coreVar ();
+	strWord ();
 	return pid;
 }
 
@@ -47,7 +47,7 @@ char *sysPipe () {
 		return (char *) NULL;
 	}
 
-	coreEval ();
+	coreUpdate ();
 
 	read (pipefd[0], data, sizeof (data));
 	close (pipefd[0]); close (pipefd[1]);

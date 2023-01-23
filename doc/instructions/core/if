@@ -1,0 +1,10 @@
+NAME
+	if - condition
+
+SYNOPSIS
+	if [condition] [keyword]
+
+DESCRIPTION
+	runs a boolean test on a value retreived from a given keyword
+	if the test is true, the following instruction (word) will be evaluated
+

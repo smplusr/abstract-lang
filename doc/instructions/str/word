@@ -1,0 +1,8 @@
+NAME
+	word - gets a word
+
+SYNOPSIS
+	word [stream]
+
+DESCRIPTION
+	the word instruction returns a stored word for a given stream	

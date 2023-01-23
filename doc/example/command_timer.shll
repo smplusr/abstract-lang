@@ -1,0 +1,19 @@
+#!/bin/shll
+
+
+print sn string " Enter a command to be executed : "
+define command input
+
+print s string " Enter time before " print s command print sn string "  (in minutes) : "
+define time int input
+
+
+print s string " Executing " print s command print s string "  in : "
+print d mul time int 60 print s string "  seconds or "
+print d time print sn string "  minutes "
+
+
+sleep mul time int 60
+
+print s string " Executing " print sn command
+exec int 0 command

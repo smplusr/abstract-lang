@@ -1,0 +1,13 @@
+All instructions defined in this folder should follow this example :
+
+
+
+
+NAME
+	word - short description
+
+SYNOPSIS
+	word [ARGUMENT]
+
+DESCRIPTION
+	description

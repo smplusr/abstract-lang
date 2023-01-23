@@ -4,6 +4,7 @@
 
 #include "dict.h"
 #include "string.h"
+#include "str.h"
 
 
 #define WORD_LEN 16
@@ -11,9 +12,9 @@
 
 
 
-size_t coreVar ();
-size_t coreEval ();
+size_t coreUpdate ();
+void coreEval ();
 void coreDefine ();
 bool coreNot ();
 void coreCond ();
-void coreEvaluate ();
+char *coreInput ();

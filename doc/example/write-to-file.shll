@@ -1,0 +1,22 @@
+#!/bin/shll
+
+
+define file_name /tmp/output.txt
+define string_to_write string " Hello world! "
+
+
+define message string " Writing string : "
+print s message
+print s string_to_write
+
+define message string " to file : "
+print s message
+print sn file_name
+
+
+define file_pointer open wa file_name
+write file_pointer string_to_write
+
+
+define 0 int 0
+exit 0

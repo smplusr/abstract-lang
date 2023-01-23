@@ -1,0 +1,8 @@
+NAME
+	eval - parses a stream
+
+SYNOPSIS
+	eval [stream]
+
+DEFINITION
+	parses / evaluates all expressions in a stream

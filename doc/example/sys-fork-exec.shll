@@ -1,0 +1,17 @@
+#!/bin/shll
+
+
+define argc int 1
+
+
+define message string " Generating child and executing command "
+print sn message
+
+fork exec argc echo hello
+
+define message string " Process forked, exitting after child death "
+print sn message
+
+
+define 0 int 0
+exit 0

@@ -1,13 +1,15 @@
-CC	:= gcc
-CFLAGS	:= -Wall -Wextra -Werror -pedantic -ansi -Os -v
+CC	:= cc
+CFLAGS	:= -Wall -Wextra -Werror -pedantic -ansi -O2 -v
 
 SRCDIR	:= src/
 CFILES	:= $(SRCDIR)*.c
 TARGET	:= $(SRCDIR)main.elf
+PARAMS	:=
 
 
 
 all:	$(TARGET)
+#	mv $< /bin/shll
 
 
 clean:	
@@ -15,8 +17,7 @@ clean:
 
 
 run:	$(TARGET)
-	clear
-	./$<
+	./$< $(PARAMS)
 
 
 

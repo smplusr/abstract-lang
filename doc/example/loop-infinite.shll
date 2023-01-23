@@ -1,0 +1,8 @@
+#!/bin/shll
+
+
+define loop string \
+	eval loop
+\
+
+eval loop

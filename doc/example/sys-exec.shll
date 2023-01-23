@@ -1,0 +1,10 @@
+#!/bin/shll
+
+
+define argc int 1
+
+exec argc echo hello
+
+
+define 0 int 0
+exit 0
