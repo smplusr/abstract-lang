@@ -1,6 +1,6 @@
 #pragma once
 
-#include "list.h"
+#include "node.h"
 #include "util.h"
 
 
@@ -8,15 +8,16 @@
 	dict_t DICT = {			\
 		NULL,			\
 		dictSet,		\
-		dictGet			\
+		dictGet,		\
+		dictDel			\
 	}
 
-/* Dictionary delete function is not currently implemented
- * */
+
+
 
 typedef enum {
-	callable,
-	data
+	cal,
+	dat
 } type_t;
 
 typedef struct global_t {
@@ -35,6 +36,7 @@ struct dict_t {
 
 	void (*set) (char *, size_t, type_t);
 	pair_t *(*get) (char *);
+	void (*del) (char *);
 };
 
 

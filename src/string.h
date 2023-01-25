@@ -3,7 +3,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <string.h>
-#include "list.h"
+#include "node.h"
 #include "util.h"
 
 
@@ -12,30 +12,32 @@
 #define init_string(STR) 	\
 	string_t STR = {	\
 		NULL,		\
-		stringSavePtr,	\
 		stringFind,	\
 		stringStore,	\
+		stringRemove	\
 	}
 
 
 
-/* String delete function not currently implemented
+
+/* Needs removeal (or rename) of chr_t as
+ * hash is calculated dynamically in dictionnary find
+ * or string find.
  * */
 
-typedef struct str_ptr_t {
+
+typedef struct chr_t {
 	char *data;
 	size_t hash;
-} str_ptr_t;
-
+} chr_t;
 
 typedef struct string_t string_t;
 struct string_t {
 	node_t *node;
 
-
-	str_ptr_t *(*save) (const char *);
-	str_ptr_t *(*find) (const char *);
-	char *(*store) (char *);
+	chr_t *(*find) (const char *);
+	char *(*store) (const char *);
+	void (*remove) (const char *);
 };
 
 

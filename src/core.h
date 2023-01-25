@@ -13,8 +13,10 @@
 
 
 size_t coreUpdate ();
+size_t coreValue ();
 void coreEval ();
 void coreDefine ();
 bool coreNot ();
 void coreCond ();
 char *coreInput ();
+void coreDelete ();

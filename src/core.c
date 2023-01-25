@@ -10,32 +10,64 @@
 size_t coreUpdate () {
 	char *str = strWord ();
 	pair_t *pair = (pair_t *) dict.get (str);
+
 	return (pair)
-		? (pair->value.type == callable)
+		? (pair->value.type == cal)
 			? (size_t) (*(void *(*) ()) pair->value.data) ()
 			: (size_t) pair->value.data
-		: (size_t) str;	
+		: (size_t) str;
 }
 
-/* Need a way to detect if a word is callable
+/* Useful for:
+ * 
+ * define a b
+ * define b c
+ * define a value a
+ * 
+ * a -> c
+ * */
+
+size_t coreValue () {
+	pair_t *pair = dict.get ((char *) coreUpdate ());
+	return (pair)
+		? pair->value.data
+		: (size_t) NULL;
+}
+
+
+
+/* Need a way to detect if a word is cal
  * If yes, do not evaluate (otherwise SEGFAULT)
  * Is it necessary though ?
  * */
 
 void coreEval () { stream.update ((char *) coreUpdate ()); }
 
+/* COMMENT OBSOLETE TODO DELETE
+ *
+ * Word redefinition needs prior deletion
+ * 
+ * define variable hello
+ * define variable testing
+ * 
+ * hello -> testing
+ * */
+
 void coreDefine () {
-	char *str = strWord ();
-	dict.set (str, coreUpdate (), data);
+	char *word = strWord ();
+	dict.set(word, coreUpdate (), dat);
 }
 
 
-bool coreNot () { return ! (bool) coreUpdate (); }
+bool coreNot () { 
+	if (coreUpdate ()) return false;
+	return true;
+}
 
 void coreCond () {
 	((bool) coreUpdate ())
 		? (void) coreUpdate ()
-		: (void) strWord ();
+		: (void) strWord ();		/* Needs a word ignore function */
 }
 
 char *coreInput () {
@@ -47,4 +79,12 @@ char *coreInput () {
 	stream.update (ptr);
 
 	return string.store (str);
+}
+
+
+void coreDelete () { 
+	char *word = strWord ();	
+
+	string.remove (word);
+	dict.del (word);
 }

@@ -36,3 +36,31 @@ char *strConc () {
 
 	return concat (str1, str2);
 }
+
+/* Find a better algorithm for seek?
+ * */
+
+char *strSeek () {
+	char *word = (char *) coreUpdate (),
+	     *str = (char *) coreUpdate (),
+	     comp[BUFF_SIZE],
+	     *a, *b;
+
+	for (; cins (*str, WORD_END); str++);
+	for (; str && *str; str = a, str++) {
+		for (a = str, b = comp; !cins (*a, WORD_END); a++, b++)
+			*b = *a;
+
+		for (; *b; b++) *b = '\0';
+
+		if (djb2Hash (comp) == djb2Hash (word)) {
+			for (; !cins(*str++, WORD_END); );
+			return str;
+		}
+	}
+
+	return (char *) NULL;
+}
+
+
+void strRemove () { string.remove ((char *) coreUpdate ()); }

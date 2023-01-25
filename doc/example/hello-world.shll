@@ -1,4 +1,4 @@
-#!/bin/shll
+#!/bin/guse
 
 define hello string " Hello world! "
 

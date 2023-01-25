@@ -13,33 +13,38 @@
 
 
 void setInstructions () {
-	dict.set (string.store ("define"),	(size_t) coreDefine,	callable);
-	dict.set (string.store ("eval"),	(size_t) coreEval,	callable);
-	dict.set (string.store ("not"),		(size_t) coreNot,	callable);
-	dict.set (string.store ("if"),		(size_t) coreCond,	callable);
-	dict.set (string.store ("input"), 	(size_t) coreInput,	callable);
+	dict.set (string.store ("define"),	(size_t) coreDefine,	cal);
+	dict.set (string.store ("value"),	(size_t) coreValue,	cal);
+	dict.set (string.store ("eval"),	(size_t) coreEval,	cal);
+	dict.set (string.store ("not"),		(size_t) coreNot,	cal);
+	dict.set (string.store ("if"),		(size_t) coreCond,	cal);
+	dict.set (string.store ("input"), 	(size_t) coreInput,	cal);
 
-	dict.set (string.store ("string"),	(size_t) strString,	callable);
-	dict.set (string.store ("skip"),	(size_t) strSkip,	callable);
-	dict.set (string.store ("piks"),	(size_t) strPiks,	callable);
-	dict.set (string.store ("conc"),	(size_t) strConc,	callable);
+	dict.set (string.store ("delete"), 	(size_t) coreDelete,	cal);
+	dict.set (string.store ("remove"), 	(size_t) strRemove,	cal);
 
-	dict.set (string.store ("int"),		(size_t) mathInt,	callable);
-	dict.set (string.store ("add"), 	(size_t) mathAdd,	callable);
-	dict.set (string.store ("sub"), 	(size_t) mathSub,	callable);
-	dict.set (string.store ("mul"), 	(size_t) mathMul,	callable);
-	dict.set (string.store ("div"), 	(size_t) mathDiv,	callable);
+	dict.set (string.store ("string"),	(size_t) strString,	cal);
+	dict.set (string.store ("skip"),	(size_t) strSkip,	cal);
+	dict.set (string.store ("piks"),	(size_t) strPiks,	cal);
+	dict.set (string.store ("conc"),	(size_t) strConc,	cal);
+	dict.set (string.store ("seek"),	(size_t) strSeek,	cal);
 
-	dict.set (string.store ("open"),	(size_t) fileOpen,	callable);
-	dict.set (string.store ("close"),	(size_t) fileClose,	callable);
-	dict.set (string.store ("read"),	(size_t) fileRead,	callable);
-	dict.set (string.store ("write"),	(size_t) fileWrite,	callable);
+	dict.set (string.store ("int"),		(size_t) mathInt,	cal);
+	dict.set (string.store ("add"), 	(size_t) mathAdd,	cal);
+	dict.set (string.store ("sub"), 	(size_t) mathSub,	cal);
+	dict.set (string.store ("mul"), 	(size_t) mathMul,	cal);
+	dict.set (string.store ("div"), 	(size_t) mathDiv,	cal);
 
-	dict.set (string.store ("print"),	(size_t) outPrint,	callable);
+	dict.set (string.store ("open"),	(size_t) fileOpen,	cal);
+	dict.set (string.store ("close"),	(size_t) fileClose,	cal);
+	dict.set (string.store ("read"),	(size_t) fileRead,	cal);
+	dict.set (string.store ("write"),	(size_t) fileWrite,	cal);
 
-	dict.set (string.store ("sleep"),	(size_t) sysSleep,	callable);
-	dict.set (string.store ("exit"),	(size_t) sysExit,	callable);
-	dict.set (string.store ("exec"),	(size_t) sysExec,	callable);
-	dict.set (string.store ("fork"),	(size_t) sysFork,	callable);
-	dict.set (string.store ("pipe"),	(size_t) sysPipe,	callable);
+	dict.set (string.store ("print"),	(size_t) outPrint,	cal);
+
+	dict.set (string.store ("sleep"),	(size_t) sysSleep,	cal);
+	dict.set (string.store ("exit"),	(size_t) sysExit,	cal);
+	dict.set (string.store ("exec"),	(size_t) sysExec,	cal);
+	dict.set (string.store ("fork"),	(size_t) sysFork,	cal);
+	dict.set (string.store ("pipe"),	(size_t) sysPipe,	cal);
 }

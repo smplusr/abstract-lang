@@ -1,3 +1,29 @@
+Language name :	GUSE | GUUSE	(General purpose / Generic) (Untyped / Unstructured) (String / Stream) (Evaluator)	Pronounced 'Goose' (IPA : /'gu:s/)
+
+Notes : 
+	- Uses high level (litteral) words for dictionary keys
+	- Uses (machine) word for dictionary data
+	- Main function (of importance) : coreUpdate
+	- The source (string / stream) is needed throughout a program execution
+	- The source is not modified by the execution flow (but can be rewritten / dict redef)
+	- Language is untyped, unstructured, concatenative (reversed) and reflective
+
+Comments:
+	It is a mix of bash, forth and lisp (being mainly stackless forth operating on strings and not trees of <static> words)
+
+
+
+		NEED TO IMPLEMENT A TOKENIZER ASAP
+
+
+
+
+
+OLD README:
+
+
+
+
 SHLL or Simple High Level Language
 is a high interpreted programming language that should be used
 mainly for scripting. 

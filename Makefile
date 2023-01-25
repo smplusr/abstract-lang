@@ -9,7 +9,7 @@ PARAMS	:=
 
 
 all:	$(TARGET)
-#	mv $< /bin/shll
+#	mv $< /bin/guse
 
 
 clean:	

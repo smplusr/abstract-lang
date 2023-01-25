@@ -4,6 +4,9 @@
 
 
 pair_t *dictGet (char *key) {	
+	/* Needs testing for hash instead of key
+	 * */
+
 	node_t *node = dict.node;
 	pair_t *pair;
 
@@ -34,6 +37,16 @@ void dictSet (char *key, size_t value, type_t type) {
 }
 
 
+
+
+
+
+void dictDel (char *key) { 
+	nodeDelete ((size_t) dict.get (key), &dict.node);
+	/* Try to delete (free) the data associated with the pair.
+	 * Only if it is a string (allocated).
+	 * */
+}
 
 
 init_dict (dict);
