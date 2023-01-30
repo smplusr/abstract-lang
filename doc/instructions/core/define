@@ -1,0 +1,9 @@
+NAME
+	define - defines a word
+
+SYNOPSIS
+	define [name] [value]
+
+DESCRIPTION
+	writes a computed (evaluated) value to a new pair in the dictionary
+	the pair will be defined using the given key and value

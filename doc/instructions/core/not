@@ -1,0 +1,8 @@
+NAME
+	not - boolean inverse
+
+SYNOPSIS
+	not [keyword]
+
+DESCRIPTION
+	   returns the inverse of the boolean value stored in the dictionary

@@ -1,0 +1,10 @@
+#!/bin/guse
+
+
+print s string " argv0 : "
+print sn argv0
+
+print s string " argv1 : "
+print sn argv1
+
+exit int 0
