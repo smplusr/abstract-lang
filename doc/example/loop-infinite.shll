@@ -1,8 +1,0 @@
-#!/bin/guse
-
-
-define loop string \
-	eval loop
-\
-
-eval loop

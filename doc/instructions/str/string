@@ -1,9 +1,0 @@
-NAME
-	string - gets a string
-
-SYNOPSIS
-	string [delim] [stream] [delim]
-
-DESCRIPTION
-	gets and store a string (all characters different from null and delimiter)
-	en extended version of the "word" keyword
