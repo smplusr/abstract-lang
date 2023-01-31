@@ -1,0 +1,16 @@
+#!/bin/guse
+
+
+define i int 1000
+
+define loop string \
+	print dn i
+	define i sub i int 1
+	
+	if i eval loop
+
+	define 0 int 0	
+	exit int 0
+\
+
+eval loop

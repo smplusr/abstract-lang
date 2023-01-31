@@ -1,0 +1,9 @@
+NAME
+	skip - skips n characters from a stream
+
+SYNOPSIS
+	skip [keyword] [keyword]
+
+DESCRIPTION
+	skips n characters from a stream
+	those n characters also needs to be stored in the dictionary
