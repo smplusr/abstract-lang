@@ -7,7 +7,7 @@ FILE *fileOpen (lang_t *lang) {
 	char *name, *mode;
 	FILE *file;
 
-	mode = lang->string->getWord (lang->string, "\n\t ");
+	mode = lang->string->getWord (lang->string, WORD_END);
 
 	name = (char *) lang->update (lang);
 	file = fopen (name, mode);
@@ -27,7 +27,7 @@ void fileClose (lang_t *lang) { fclose ((FILE *) lang->update (lang)); }
 char *fileRead (lang_t *lang) {
 	FILE *file = (FILE *) lang->update (lang);
 
-	char data[4096 * 8], *str = data;
+	char data[BUFF_SIZE], *str = data;
 	for (; (*str = fgetc (file)); str++)
 		if (feof (file) || !*str)
 			break;

@@ -2,26 +2,51 @@
 
 
 
-
-/*char *strWord () {
-	char str[BUFF_SIZE];
-	return string.store (getword (str, WORD_END));
-}*/
-
 char *strString (lang_t *lang) {
-/*	char delim[DELIM_SIZE], data[BUFF_SIZE], *str;
-	str = getword (data, getword (delim, WORD_END));
-	stream.update (NULL);
-*/
-
-/*
-	char *delim = lang->string->getWord (lang->string, "\n\t ");
-	char *string = lang->string->getWord (lang->string, delim);
-	lang->string->remove (lang->string, delim);
-*/
-
-	return lang->string->getWord (lang->string, lang->string->getWord (lang->string, "\n\t "));
+	return lang->string->getWord (lang->string, lang->string->getWord (lang->string, WORD_END));
 }
+
+char *strConc (lang_t *lang) {
+	char *a = (char *) lang->update (lang),
+	     *b = (char *) lang->update (lang);
+
+	char str[BUFF_SIZE], *ptr = str;
+	const size_t len = sizeof (str) / sizeof (ptr);
+
+	for (; *a && ptr <= (str + len); a++, ptr++)
+		*ptr = *a;
+	for (; *b && ptr <= (str + len); b++, ptr++)
+		*ptr = *b;
+
+	*ptr++ = '\0';
+	return lang->string->store (lang->string, str);
+}
+
+/* Find a better algorithm for seek?
+ * */
+
+char *strSeek (lang_t *lang) {
+	char *word = (char *) lang->update (lang),
+	     *str = (char *) lang->update (lang),
+	     comp[BUFF_SIZE],
+	     *a, *b;
+
+	for (; lang->string->charInString (*str, WORD_END); str++);
+	for (; str && *str; str = a, str++) {
+		for (a = str, b = comp; !lang->string->charInString (*a, WORD_END); a++, b++)
+			*b = *a;
+
+		for (; *b; b++) *b = '\0';
+
+		if (lang->string->djb2Hash (comp) == lang->string->djb2Hash (word)) {
+			for (; !lang->string->charInString(*str++, WORD_END); );
+			return str;
+		}
+	}
+
+	return (char *) NULL;
+}
+
 /*
 char *strSkip (lang_t *lang) {
 	char *str = (char *) lang->update (lang);
@@ -41,43 +66,3 @@ char *strPiks () {
 	return backward (str, cnt, WORD_END);
 }*/
 
-char *strConc (lang_t *lang) {
-	char *a = (char *) lang->update (lang),
-	     *b = (char *) lang->update (lang);
-
-	char str[4096 * 8], *ptr = str;
-	const size_t len = sizeof (str) / sizeof (ptr);
-
-	for (; *a && ptr <= (str + len); a++, ptr++)
-		*ptr = *a;
-	for (; *b && ptr <= (str + len); b++, ptr++)
-		*ptr = *b;
-
-	*ptr++ = '\0';
-	return lang->string->store (lang->string, str);
-}
-
-/* Find a better algorithm for seek?
- * */
-
-char *strSeek (lang_t *lang) {
-	char *word = (char *) lang->update (lang),
-	     *str = (char *) lang->update (lang),
-	     comp[4096 * 8],
-	     *a, *b;
-
-	for (; lang->string->charInString (*str, "\n\t "); str++);
-	for (; str && *str; str = a, str++) {
-		for (a = str, b = comp; !lang->string->charInString (*a, "\n\t "); a++, b++)
-			*b = *a;
-
-		for (; *b; b++) *b = '\0';
-
-		if (lang->string->djb2Hash (comp) == lang->string->djb2Hash (word)) {
-			for (; !lang->string->charInString(*str++, "\n\t "); );
-			return str;
-		}
-	}
-
-	return (char *) NULL;
-}

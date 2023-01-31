@@ -28,7 +28,7 @@ void dictSet (dict_t *dict, char *key, size_t value, type_t type) {
 
 	if (!pair) {
 		pair = (pair_t *) malloc (sizeof (pair_t));
-		dict->list->head = Node ((size_t) pair, dict->list->head);	/* listAppend? */
+		dict->list->append (dict->list, (size_t) pair);
 	}
 
 	pair->key = key;
@@ -39,7 +39,7 @@ void dictSet (dict_t *dict, char *key, size_t value, type_t type) {
 
 void dictRemove (dict_t *dict, char *key) { 
 	pair_t *pair = dict->get (dict, key);
-	dict->list->remove (&dict->list->head, (size_t) pair);
+	dict->list->remove (dict->list, (size_t) pair);
 	free (pair);
 
 	/* Try to delete (free) the data associated with the pair.

@@ -37,13 +37,13 @@ size_t sysFork (lang_t *lang) {
 		return (size_t) NULL;
 	}
 
-	lang->string->getWord (lang->string, "\n\t ");		/* ignore word */
+	lang->string->getWord (lang->string, WORD_END);		/* ignore word */
 	return (size_t) pid;
 }
 
 
 char *sysPipe (lang_t *lang) {
-	char data[4096] = "";
+	char data[BUFF_SIZE];
 	
 	if (pipe (pipefd) == EOF) {
 		perror (NULL);

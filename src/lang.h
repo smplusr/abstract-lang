@@ -43,6 +43,7 @@ void fileWrite (lang_t *);
 void fileClose (lang_t *);
 
 size_t mathCharToInt (lang_t *);
+char *mathIntToChar (lang_t *);
 size_t mathAdd (lang_t *);
 size_t mathSub (lang_t *);
 size_t mathMul (lang_t *);

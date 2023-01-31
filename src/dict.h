@@ -1,12 +1,13 @@
 #pragma once
 
-#include "node.h"
+#include "list.h"
 
 
 
 typedef enum {
-	cal,
-	dat
+	null,
+	data,
+	func
 } type_t;
 
 typedef struct global_t {
@@ -22,7 +23,6 @@ typedef struct pair_t {
 typedef struct dict_t dict_t;
 struct dict_t {
 	list_t *list;
-
 
 	void (*destroy) (dict_t **);
 

@@ -4,8 +4,8 @@
 
 
 void coreDefine (lang_t *lang) {
-	char *word = lang->string->getWord (lang->string, "\n\t ");
-	lang->dict->set(lang->dict, word, lang->update (lang), dat);
+	char *word = lang->string->getWord (lang->string, WORD_END);
+	lang->dict->set(lang->dict, word, lang->update (lang), data);
 }
 
 size_t coreValue (lang_t *lang) {
@@ -23,7 +23,7 @@ size_t coreNot (lang_t *lang) { return (size_t) !lang->update (lang); }
 void coreCond (lang_t *lang) {
 	((bool) lang->update (lang))
 		? (void) lang->update (lang)
-		: (void) lang->string->getWord (lang->string, "\n\t ");	/* Needs a word ignore function */
+		: (void) lang->string->getWord (lang->string, WORD_END);	/* Needs a word ignore function */
 }
 
 char *coreInput (lang_t *lang) {
@@ -43,7 +43,7 @@ char *coreInput (lang_t *lang) {
  * */
 
 void coreDelete (lang_t *lang) { 	
-	char *word = lang->string->getWord (lang->string, "\n\t ");
+	char *word = lang->string->getWord (lang->string, WORD_END);
 
 	lang->dict->remove (lang->dict, word);
 	lang->string->remove (lang->string, word);

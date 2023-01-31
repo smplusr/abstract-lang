@@ -30,13 +30,16 @@ char *stringStore (string_t *string, char *str) {
 
 		strcpy (ptr->data, str);
 		ptr->hash = string->djb2Hash (ptr->data);
-		string->list->head = Node ((size_t) ptr, string->list->head);		/* listAppend? */
+		string->list->append (string->list, (size_t) ptr);
 	}
 	return ptr->data;
 }
 
 
-void stringRemove (string_t *string, char *str) { string->list->remove (&string->list->head, (size_t) string->find (string, str)->data); }
+void stringRemove (string_t *string, char *str) {
+	string->list->remove (string->list, (size_t) string->find (string, str)->data);
+}
+
 
 bool charInString (char c, const char *delim) {
 	for (; *delim; delim++)
@@ -64,7 +67,7 @@ char *getWord (string_t *string, char *delim) {
 
 
 size_t djb2Hash (const char *word) {
-	size_t hash = 5381;
+	size_t hash = HASH_CONS;
 	for (; *word; word++)
 		hash = ((hash << 5) + hash) + *word;
 	return hash;

@@ -3,11 +3,13 @@
 #include <stdbool.h>
 #include <stddef.h>
 #include <string.h>
-#include "node.h"
+#include "list.h"
 #include "stream.h"
 
 
 #define BUFF_SIZE 4096 * 8
+#define HASH_CONS 5381
+#define WORD_END  "\n\t "
 
 
 
