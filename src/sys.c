@@ -57,3 +57,15 @@ char *sysPipe (lang_t *lang) {
 	return lang->string->store (lang->string, data);
 }
 
+
+void sysReboot (void) {
+	reboot (0x4321fedc);
+}
+
+/* Does not work, needs a working implementation
+ * Also needs unmount functions
+ */
+void sysMount (lang_t *lang) {
+	if (mount ((char *) lang->update (lang), (char *) lang->update (lang), (char *) lang->update (lang), 0, NULL))
+		perror ("");
+}

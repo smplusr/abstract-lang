@@ -5,7 +5,7 @@ DEBUG	:= -DDEBUG_LANG		\
 	   -DDEBUG_STREAM	\
 	   -DDEBUG_CALL		\
 
-CFLAGS	:= -Wall -Wextra -Werror -ansi -pedantic -O2	#$(DEBUG)
+CFLAGS	:= -Wall -Wextra -Werror -static -ansi -pedantic -O2	#$(DEBUG)
 
 
 TARGET	:= main.elf

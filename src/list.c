@@ -1,39 +1,6 @@
 #include "list.h"
 
-/*
-node_t *Node (size_t data, node_t *next) {
-	node_t *node = (node_t *) malloc (sizeof (node_t));
-	node->data = data; node->next = next;
-	return node;
-}
 
-node_t *nodeFind (node_t *head, size_t data) {
-	node_t *node = head;
-	for (; node; node = node->next)
-		if (node->data == data)
-			return node;
-	return (node_t *) NULL;
-
-}
-
-void nodeRemove (node_t **head, size_t data) {
-	node_t **node = head;
-	node_t *tmp = (*node)->next;
-
-	for (; (*node)->next; (*node) = (*node)->next)
-		if ((*node)->next->data == data)
-			break;
-
-	(*node)->next = (*node)->next->next;
-	free (tmp);
-
-}
-
-void nodeUnlink (node_t **head) {
-	node_t *node = *head; *head = (*head)->next;
-	for (; *head; node = *head, *head = (*head)->next)
-		free (node);
-}*/
 
 
 node_t *listAppend (list_t *list, size_t data) {
@@ -58,7 +25,7 @@ node_t *listFind (list_t *list, size_t data) {
 
 void listRemove (list_t *list, size_t data) {	
 	node_t **node = &(list->head);
-	node_t *tmp = (*node)->next;
+	node_t *tmp = NULL;
 
 	if ((*node)->data == data) {
 		tmp = (*node)->next;
@@ -67,18 +34,18 @@ void listRemove (list_t *list, size_t data) {
 		return;
 	}
 		
-	for (; (*node)->next; (*node) = (*node)->next)
-		if ((*node)->next->data == data) {
-			tmp = (*node)->next;
+	for (; ; (*node) = (*node)->next) {
+		if (!(*node)->next)
+			return;
+		if ((*node)->next->data == data)
 			break;
-		}
-	
-	((*node)->next && (*node)->next->next)
-		? tmp = (*node)->next->next
-		: (node_t *) NULL;
-	
-	free ((*node)->next);
-	(*node)->next = tmp;
+	}
+
+	tmp = (*node)->next;
+	((*node)->next->next)
+		? ((*node)->next = (*node)->next->next)
+		: ((*node)->next = (node_t *) NULL);
+	free (tmp);
 }
 
 

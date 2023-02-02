@@ -62,11 +62,13 @@ lang_t *Lang () {
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "seek"), (size_t) strSeek, func);
 
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "print"), (size_t) outPrint, func);
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "clear"), (size_t) outClear, func);
 
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "open"), (size_t) fileOpen, func);
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "read"), (size_t) fileRead, func);
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "write"), (size_t) fileWrite, func);
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "close"), (size_t) fileClose, func);
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "remove"), (size_t) fileRemove, func);
 
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "int"), (size_t) mathCharToInt, func);
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "char"), (size_t) mathIntToChar, func);
@@ -80,6 +82,18 @@ lang_t *Lang () {
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "exec"), (size_t) sysExec, func);
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "fork"), (size_t) sysFork, func);
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "pipe"), (size_t) sysPipe, func);
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "reboot"), (size_t) sysReboot, func);
+/*	lang->dict->set (lang->dict, lang->string->store (lang->string, "mount"), (size_t) sysMount, func);
+*/
+
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "opendir"), (size_t) dirOpen, func);
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "closedir"), (size_t) dirClose, func);
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "readdir"), (size_t) dirRead, func);
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "mkdir"), (size_t) dirMake, func);
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "rmdir"), (size_t) dirRemove, func);
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "chdir"), (size_t) dirChange, func);
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "pwdir"), (size_t) dirCurrent, func);
+
 
 #ifdef DEBUG_LANG
 	lang->debug = langDebug;

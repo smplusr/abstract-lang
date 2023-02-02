@@ -39,11 +39,15 @@ void dictSet (dict_t *dict, char *key, size_t value, type_t type) {
 
 void dictRemove (dict_t *dict, char *key) { 
 	pair_t *pair = dict->get (dict, key);
+	if (!pair) return;
+
 	dict->list->remove (dict->list, (size_t) pair);
 	free (pair);
 
 	/* Try to delete (free) the data associated with the pair.
 	 * Only if it is a string (allocated).
+	 * COULD BE DONE ONLY IF STRING HASHING IS DONE IN DICT
+	 * hash of size_t or null is impossible in stringFind ()
 	 * */
 }
 

@@ -17,13 +17,12 @@ size_t coreValue (lang_t *lang) {
 
 void coreEval (lang_t *lang) { lang->string->stream->set (lang->string->stream, (char *) lang->update (lang)); }
 
-
 size_t coreNot (lang_t *lang) { return (size_t) !lang->update (lang); }
 
 void coreCond (lang_t *lang) {
 	((bool) lang->update (lang))
 		? (void) lang->update (lang)
-		: (void) lang->string->getWord (lang->string, WORD_END);	/* Needs a word ignore function */
+		: (void) lang->string->getWord (lang->string, WORD_END);	/* Needs a word ignore function? */
 }
 
 char *coreInput (lang_t *lang) {
@@ -36,11 +35,6 @@ char *coreInput (lang_t *lang) {
 
 	return str;
 }
-
-
-/* Glitchy, needs to be fixed
- * Call -> SEGFAULT
- * */
 
 void coreDelete (lang_t *lang) { 	
 	char *word = lang->string->getWord (lang->string, WORD_END);

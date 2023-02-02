@@ -17,3 +17,5 @@ void outPrint (lang_t *lang) {
 	if (lang->string->charInString ('n', delim))
 		printf ("\n");
 }
+
+void outClear (void) { puts ("\033[2J\033[0;0H"); }

@@ -46,3 +46,5 @@ void fileWrite (lang_t *lang) {
 		fflush (file);
 	}
 }
+
+void fileRemove (lang_t *lang) { remove ((char *) lang->update (lang)); }

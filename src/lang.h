@@ -36,11 +36,14 @@ char *strConc (lang_t *);
 char *strSeek (lang_t *);
 
 void outPrint (lang_t *);
+void outClear (void);
 
+#include <sys/stat.h>
 FILE *fileOpen (lang_t *);
 char *fileRead (lang_t *);
 void fileWrite (lang_t *);
 void fileClose (lang_t *);
+void fileRemove (lang_t *);
 
 size_t mathCharToInt (lang_t *);
 char *mathIntToChar (lang_t *);
@@ -49,8 +52,23 @@ size_t mathSub (lang_t *);
 size_t mathMul (lang_t *);
 size_t mathDiv (lang_t *);
 
+#include <sys/reboot.h>
+#include <sys/mount.h>
+#include <unistd.h>
 void sysExit (lang_t *);
 void sysSleep (lang_t *);
 void sysExec (lang_t *);
 size_t sysFork (lang_t *);
 char *sysPipe (lang_t *);
+void sysReboot (void);
+void sysMount (lang_t *);
+
+#include <dirent.h>
+#include <unistd.h>
+DIR *dirOpen (lang_t *);
+void dirClose (lang_t *);
+char *dirRead (lang_t *);
+void dirMake (lang_t *);
+void dirRemove (lang_t *);
+void dirChange (lang_t *);
+char *dirCurrent (lang_t *);

@@ -36,8 +36,12 @@ char *stringStore (string_t *string, char *str) {
 }
 
 
-void stringRemove (string_t *string, char *str) {
-	string->list->remove (string->list, (size_t) string->find (string, str)->data);
+void stringRemove (string_t *string, char *in) {
+	token_t *token = string->find (string, in);
+	if (!token) return;
+
+	string->list->remove (string->list, (size_t) token);
+	free (token);
 }
 
 
