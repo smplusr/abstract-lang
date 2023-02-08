@@ -67,8 +67,8 @@ char *fileRead (lang_t *);
 void fileCreate (lang_t *);
 void fileWrite (lang_t *);
 void fileClose (lang_t *);
-void fileAccess (lang_t *);
-bool fileRemove (lang_t *);
+size_t fileAccess (lang_t *);
+void fileRemove (lang_t *);
 
 void sysExit (lang_t *);
 void sysSleep (lang_t *);
