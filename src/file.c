@@ -1,5 +1,10 @@
 #include "lang.h"
 
+#ifdef LANG_FILE
+
+#include <sys/stat.h>
+#include <unistd.h>
+#include <fcntl.h>
 
 
 
@@ -21,8 +26,8 @@ FILE *fileOpen (lang_t *lang) {
 }
 
 
-void fileClose (lang_t *lang) { fclose ((FILE *) lang->update (lang)); }
-
+void fileClose (lang_t *lang) { ERROR_CHECK (fclose ((FILE *) lang->update (lang))); }
+void fileCreate (lang_t *lang) { ERROR_CHECK (creat ((char *) lang->update (lang), 0777)); }
 
 char *fileRead (lang_t *lang) {
 	FILE *file = (FILE *) lang->update (lang);
@@ -36,7 +41,6 @@ char *fileRead (lang_t *lang) {
 	return lang->string->store (lang->string, data);
 }
 
-
 void fileWrite (lang_t *lang) {
 	FILE *file = (FILE *) lang->update (lang);
 	char *str = (char *) lang->update (lang);
@@ -47,4 +51,7 @@ void fileWrite (lang_t *lang) {
 	}
 }
 
-void fileRemove (lang_t *lang) { remove ((char *) lang->update (lang)); }
+void fileRemove (lang_t *lang) { ERROR_CHECK (remove ((char *) lang->update (lang))) }
+
+
+#endif

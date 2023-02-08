@@ -2,13 +2,18 @@
 
 
 
-
-size_t mathCharToInt (lang_t *lang) {
+size_t mathCharToDecimal (lang_t *lang) {
 	char *str = (char *) lang->update (lang);
-	return (str)
-		? (size_t) atoi (str)
-		: (size_t) NULL;
+	int i = 0; sscanf (str, "%d", &i);
+	return i;
 }
+
+size_t mathCharToOctal (lang_t *lang) {
+	char *str = (char *) lang->update (lang);
+	unsigned int i = 0; sscanf (str, "%o", &i);
+	return i;
+}
+
 
 char *mathIntToChar (lang_t *lang) {
 	size_t i = (size_t) lang->update (lang);

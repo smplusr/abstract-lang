@@ -1,4 +1,7 @@
-Language name :	GUSE | GUUSE	(General purpose / Generic) (Untyped / Unstructured) (String / Stream) (Evaluator)	Pronounced 'Goose' (IPA : /'gu:s/)
+Language name :	SIPE	Structureless Interpreted Procedural Evaluator
+OR:		FUSE	Flexible Unstructured Stream Evaluator
+
+
 
 Notes : 
 	- Uses high level (litteral) words for dictionary keys
@@ -21,6 +24,9 @@ Comments:
 
 OLD README:
 
+
+
+Language name :	GUSE | GUUSE	(General purpose / Generic) (Untyped / Unstructured) (String / Stream) (Evaluator)	Pronounced 'Goose' (IPA : /'gu:s/)
 
 
 

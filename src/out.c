@@ -18,4 +18,5 @@ void outPrint (lang_t *lang) {
 		printf ("\n");
 }
 
+void outPut (lang_t *lang) { puts ((char *) lang->update (lang)); }
 void outClear (void) { puts ("\033[2J\033[0;0H"); }

@@ -1,7 +1,13 @@
+#include "lang.h"
+
+#ifdef LANG_SYSTEM
+
+#include <sys/reboot.h>
+#include <sys/types.h>
+#include <sys/mount.h>
 #include <unistd.h>
 #include <signal.h>
-#include <sys/types.h>
-#include "lang.h"
+#include <fcntl.h>
 
 
 
@@ -20,8 +26,7 @@ void sysExec (lang_t *lang) {
 	if (pipefd[0])
 		dup2 (pipefd[1], STDOUT_FILENO);
 
-	if (execvp (argv[0], argv) == EOF)
-		perror (NULL);	
+	ERROR_CHECK (execvp (argv[0], argv))
 }
 
 
@@ -29,8 +34,7 @@ size_t sysFork (lang_t *lang) {
 	pid_t pid;
 	
 	signal (SIGCHLD, SIG_IGN);
-	if ((pid = fork ()) == EOF)
-		perror (NULL); 
+	ERROR_CHECK ((pid = fork ()))
 
 	if (!pid) {
 		lang->update (lang);
@@ -45,10 +49,10 @@ size_t sysFork (lang_t *lang) {
 char *sysPipe (lang_t *lang) {
 	char data[BUFF_SIZE];
 	
-	if (pipe (pipefd) == EOF) {
-		perror (NULL);
+	ERROR_CHECK (pipe (pipefd))
+
+	if (!pipefd[0])
 		return (char *) NULL;
-	}
 
 	lang->update (lang);
 
@@ -57,15 +61,38 @@ char *sysPipe (lang_t *lang) {
 	return lang->string->store (lang->string, data);
 }
 
-
 void sysReboot (void) {
-	reboot (0x4321fedc);
+	ERROR_CHECK (reboot (0x4321fedc))
 }
 
-/* Does not work, needs a working implementation
- * Also needs unmount functions
- */
 void sysMount (lang_t *lang) {
-	if (mount ((char *) lang->update (lang), (char *) lang->update (lang), (char *) lang->update (lang), 0, NULL))
-		perror ("");
+	char *src = (char *) lang->update (lang),
+	     *target = (char *) lang->update (lang),
+	     *type = (char *) lang->update (lang);
+
+	ERROR_CHECK (mount (src, target, type, (size_t) NULL, (char *) NULL/*"mode=0700,uid=65534"*/));
 }
+
+void sysUnmount (lang_t *lang) {
+	ERROR_CHECK (umount ((char *) lang->update (lang)));
+}
+
+void sysSymlink (lang_t *lang) {
+	char *base = (char *) lang->update (lang),
+	     *link = (char *) lang->update (lang);
+	ERROR_CHECK (symlink (base, link));
+}
+
+void sysSync (lang_t *lang) {
+	char *name = (char *) lang->update (lang);
+	int fd;
+	
+	ERROR_CHECK ((fd = open (name, O_RDONLY)))
+	ERROR_CHECK (fsync (fd));
+}
+
+
+
+
+
+#endif

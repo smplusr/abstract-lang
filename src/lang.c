@@ -49,51 +49,93 @@ lang_t *Lang () {
 	lang->destroy = langDestroy;
 	lang->update = langUpdate;
 
+
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "define"), (size_t) coreDefine, func);
+#ifdef LANG_EXTRA
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "value"), (size_t) coreValue, func);
+#endif
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "eval"), (size_t) coreEval, func);
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "not"), (size_t) coreNot, func);
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "if"), (size_t) coreCond, func);
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "input"), (size_t) coreInput, func);
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "delete"), (size_t) coreDelete, func);
 
+
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "string"), (size_t) strString, func);
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "conc"), (size_t) strConc, func);
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "seek"), (size_t) strSeek, func);
 
-	lang->dict->set (lang->dict, lang->string->store (lang->string, "print"), (size_t) outPrint, func);
+#ifdef LANG_EXTRA
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "print"), (size_t) outPrint, func);	
+#endif
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "put"), (size_t) outPut, func);
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "clear"), (size_t) outClear, func);
 
-	lang->dict->set (lang->dict, lang->string->store (lang->string, "open"), (size_t) fileOpen, func);
-	lang->dict->set (lang->dict, lang->string->store (lang->string, "read"), (size_t) fileRead, func);
-	lang->dict->set (lang->dict, lang->string->store (lang->string, "write"), (size_t) fileWrite, func);
-	lang->dict->set (lang->dict, lang->string->store (lang->string, "close"), (size_t) fileClose, func);
-	lang->dict->set (lang->dict, lang->string->store (lang->string, "remove"), (size_t) fileRemove, func);
 
-	lang->dict->set (lang->dict, lang->string->store (lang->string, "int"), (size_t) mathCharToInt, func);
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "int"), (size_t) mathCharToDecimal, func);
+#ifdef LANG_MODE
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "octal"), (size_t) mathCharToOctal, func);
+#endif
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "char"), (size_t) mathIntToChar, func);
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "add"), (size_t) mathAdd, func);
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "sub"), (size_t) mathSub, func);
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "mul"), (size_t) mathMul, func);
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "div"), (size_t) mathDiv, func);
 
+
+#ifdef LANG_FILE
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "open"), (size_t) fileOpen, func);
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "read"), (size_t) fileRead, func);
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "write"), (size_t) fileWrite, func);
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "close"), (size_t) fileClose, func);
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "rm"), (size_t) fileRemove, func);
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "touch"), (size_t) fileCreate, func);
+#endif
+
+#ifdef LANG_SYSTEM
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "exit"), (size_t) sysExit, func);
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "sleep"), (size_t) sysSleep, func);
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "exec"), (size_t) sysExec, func);
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "fork"), (size_t) sysFork, func);
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "pipe"), (size_t) sysPipe, func);
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "reboot"), (size_t) sysReboot, func);
-/*	lang->dict->set (lang->dict, lang->string->store (lang->string, "mount"), (size_t) sysMount, func);
-*/
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "mount"), (size_t) sysMount, func);
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "umount"), (size_t) sysUnmount, func);
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "ln"), (size_t) sysSymlink, func);
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "sync"), (size_t) sysSync, func);
+#endif
 
+#ifdef LANG_DIRECTORY
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "opendir"), (size_t) dirOpen, func);
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "closedir"), (size_t) dirClose, func);
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "readdir"), (size_t) dirRead, func);
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "mkdir"), (size_t) dirMake, func);
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "rmdir"), (size_t) dirRemove, func);
-	lang->dict->set (lang->dict, lang->string->store (lang->string, "chdir"), (size_t) dirChange, func);
-	lang->dict->set (lang->dict, lang->string->store (lang->string, "pwdir"), (size_t) dirCurrent, func);
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "cd"), (size_t) dirChange, func);
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "pwd"), (size_t) dirCurrent, func);
+#endif
 
+#ifdef LANG_TIME
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "now"), (size_t) timeNow, func);
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "time"), (size_t) timeConvert, func);
+#endif
+
+#ifdef LANG_MODE
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "mode"), (size_t) modeConvert, func);
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "chmod"), (size_t) modeChange, func);
+#endif
+
+#ifdef LANG_STAT
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "stat"), (size_t) statOpen, func);
+#ifdef LANG_MODE
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "perm"), (size_t) statMode, func);
+#endif
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "size"), (size_t) statSize, func);
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "blocks"), (size_t) statBlocks, func);
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "atime"), (size_t) statAccess, func);
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "mtime"), (size_t) statModify, func);
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "ctime"), (size_t) statChange, func);
+#endif
 
 #ifdef DEBUG_LANG
 	lang->debug = langDebug;
