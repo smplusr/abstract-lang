@@ -51,7 +51,7 @@ void fileWrite (lang_t *lang) {
 	}
 }
 
-bool fileAccess (lang_t *lang) { return !access((char *) lang->update (lang), F_OK); }
+size_t fileAccess (lang_t *lang) { return !access((char *) lang->update (lang), F_OK); }
 void fileRemove (lang_t *lang) { ERROR_CHECK (remove ((char *) lang->update (lang))) }
 
 
