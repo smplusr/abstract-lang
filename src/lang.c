@@ -90,6 +90,7 @@ lang_t *Lang () {
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "close"), (size_t) fileClose, func);
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "rm"), (size_t) fileRemove, func);
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "touch"), (size_t) fileCreate, func);
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "access"), (size_t) fileAccess, func);
 #endif
 
 #ifdef LANG_SYSTEM
