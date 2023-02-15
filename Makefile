@@ -12,7 +12,7 @@ DEBUG	:= -DDEBUG_LANG		\
 	   -DDEBUG_CALL		\
 
 MODULES	:= LANG_ALL
-CFLAGS	:= -Wall -Wextra -Werror -static -ansi -pedantic -O2 -D$(MODULES) -D_BSD_SOURCE
+CFLAGS	:= -Wall -Wextra -Werror -static -ansi -pedantic -O2 -D$(MODULES) -D_DEFAULT_SOURCE
 
 
 
