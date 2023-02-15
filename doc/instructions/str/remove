@@ -1,8 +1,0 @@
-NAME
-	remove - removes a string
-
-SYNOPSIS
-	remove [keyword]
-
-DESCRIPTION
-	removes a string from the set of stored strings
