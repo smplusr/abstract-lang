@@ -2,8 +2,13 @@
 
 
 
+
 char *strString (lang_t *lang) {
-	return lang->string->getWord (lang->string, lang->string->getWord (lang->string, WORD_END));
+	char c = lang->string->stream->update (lang->string->stream),
+	     *str = lang->string->getWord (lang->string, &c);
+	lang->string->stream->update (lang->string->stream);
+
+	return str;
 }
 
 char *strConc (lang_t *lang) {
@@ -21,6 +26,9 @@ char *strConc (lang_t *lang) {
 	*ptr++ = '\0';
 	return lang->string->store (lang->string, str);
 }
+
+
+#ifdef LANG_EXTRA
 
 /* Find a better algorithm for seek?
  * */
@@ -46,6 +54,10 @@ char *strSeek (lang_t *lang) {
 
 	return (char *) NULL;
 }
+
+char *strQuote (lang_t *lang) { return lang->string->getWord (lang->string, WORD_END); }
+
+#endif
 
 /*
 char *strSkip (lang_t *lang) {

@@ -33,8 +33,9 @@ char *modeConvert (lang_t *lang) {
 }
 
 void modeChange (lang_t *lang) {
-	char *file = (char *) lang->update (lang);
-	mode_t mode = (int) lang->update (lang);
+	char *file = (char *) lang->update (lang);	
+	mode_t mode = lang->update (lang);
+
 	chmod (file, mode);
 }
 

@@ -12,12 +12,13 @@
 #define LANG_TIME
 #define LANG_STAT
 #define LANG_MODE
+#define LANG_NET
 #endif
 
 #define SYSTEM_FAIL -1
 #define LOG_ERR perror (NULL);
-#define ERROR_CHECK(X) if ((X) == SYSTEM_FAIL) LOG_ERR
-
+#define SYSTEM_CHECK(X) if ((X) == SYSTEM_FAIL) LOG_ERR
+#define FAIL_IF_NULL(X) if (!(X)) { LOG_ERR return (size_t) NULL; }
 
 
 
@@ -46,6 +47,8 @@ char *coreInput (lang_t *);
 void coreDelete (lang_t *);
 void coreFree (lang_t *lang);
 
+char *strSpace (void);
+char *strQuote (lang_t *);
 char *strString (lang_t *);
 char *strConc (lang_t *);
 char *strSeek (lang_t *);
@@ -54,8 +57,9 @@ void outPrint (lang_t *);
 void outPut (lang_t *);
 void outClear (void);
 
-size_t mathCharToDecimal (lang_t *);
-size_t mathCharToOctal (lang_t *);
+/*double mathIntToFloat (size_t);
+size_t mathFloatToInt (double);*/
+size_t mathCharToInt (lang_t *);
 char *mathIntToChar (lang_t *);
 size_t mathAdd (lang_t *);
 size_t mathSub (lang_t *);
@@ -73,13 +77,18 @@ void fileRemove (lang_t *);
 void sysExit (lang_t *);
 void sysSleep (lang_t *);
 void sysExec (lang_t *);
-size_t sysFork (lang_t *);
+void sysFork (lang_t *);
+void sysWait (void);
 char *sysPipe (lang_t *);
 void sysReboot (void);
 void sysMount (lang_t *);
 void sysUnmount (lang_t *);
 void sysSymlink (lang_t *);
+#ifdef _BSD_SOURCE
+void sysSync (void);
+#else
 void sysSync (lang_t *);
+#endif
 
 void *dirOpen (lang_t *);
 void dirClose (lang_t *);
@@ -102,3 +111,11 @@ size_t statBlocks (lang_t *);
 size_t statAccess (lang_t *);
 size_t statModify (lang_t *);
 size_t statChange (lang_t *);
+
+size_t netAddress (lang_t *);
+size_t netBroadcast (lang_t *);
+size_t netSocket (void);
+void netSend (lang_t *);
+size_t netBind (lang_t *);
+char *netReceive (lang_t *);
+void netClose (lang_t *);

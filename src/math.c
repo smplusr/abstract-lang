@@ -2,27 +2,35 @@
 
 
 
-size_t mathCharToDecimal (lang_t *lang) {
-	char *str = (char *) lang->update (lang);
-	int i = 0; sscanf (str, "%d", &i);
-	return i;
+
+
+
+size_t mathCharToInt (lang_t *lang) {
+	long a; sscanf ((char *) lang->update (lang), "%ld", &a);
+	return a;
 }
 
+
+
+#ifdef LANG_MODE
 size_t mathCharToOctal (lang_t *lang) {
-	char *str = (char *) lang->update (lang);
-	unsigned int i = 0; sscanf (str, "%o", &i);
-	return i;
+	unsigned int a = 0; 
+	sscanf ((char *) lang->update (lang), "%o", &a);
+	return a;
 }
+#endif
+
 
 
 char *mathIntToChar (lang_t *lang) {
-	size_t i = (size_t) lang->update (lang);
 	char str[BUFF_SIZE];
-	sprintf (str, "%ld", i);
+	sprintf (str, "%ld", (long) lang->update (lang));
 	return lang->string->store (lang->string, str);
 }
 
-size_t mathAdd (lang_t *lang) { return (double) lang->update (lang) + (double) lang->update (lang); }
-size_t mathSub (lang_t *lang) { return (double) lang->update (lang) - (double) lang->update (lang); }
-size_t mathMul (lang_t *lang) { return (double) lang->update (lang) * (double) lang->update (lang); }
-size_t mathDiv (lang_t *lang) { return (double) lang->update (lang) / (double) lang->update (lang); }
+
+
+size_t mathAdd (lang_t *lang) { return lang->update (lang) + lang->update (lang); }
+size_t mathSub (lang_t *lang) { return lang->update (lang) - lang->update (lang); }
+size_t mathMul (lang_t *lang) { return lang->update (lang) * lang->update (lang); }
+size_t mathDiv (lang_t *lang) { return lang->update (lang) / lang->update (lang); }

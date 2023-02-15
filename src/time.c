@@ -16,7 +16,10 @@ void *timeNow (void) {
 char *timeConvert (lang_t *lang) {
 	time_t *time = (time_t *) lang->update (lang);
 	
-	char *str = ctime (time);
+	char *str = ctime (time),
+	     *ptr = str;
+	for (; *ptr; ptr++);
+	*(ptr - 1) = '\0';
 	return lang->string->store (lang->string, str);
 }
 

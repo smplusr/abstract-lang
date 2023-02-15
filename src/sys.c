@@ -5,51 +5,73 @@
 #include <sys/reboot.h>
 #include <sys/types.h>
 #include <sys/mount.h>
+#include <sys/wait.h>
 #include <unistd.h>
 #include <signal.h>
 #include <fcntl.h>
 
 
 
-int pipefd[2]; 
 
-void sysSleep (lang_t *lang) { sleep ((double) lang->update (lang)); }
-void sysExit (lang_t *lang) { exit ((double) lang->update (lang)); }
+int pipefd[2];
+bool wtrigger = 0;
+
+
+#ifdef _BSD_SOURCE
+void sysSleep (lang_t *lang) { usleep (lang->update (lang) * 1000000); }
+void sysSync (void) { sync (); }
+#else
+void sysSleep (lang_t *lang) { sleep (lang->update (lang)); }
+void sysSync (lang_t *lang) {
+	char *name = (char *) lang->update (lang);
+	int fd;
+	
+	SYSTEM_CHECK ((fd = open (name, O_RDONLY)))
+	SYSTEM_CHECK (fsync (fd));
+}
+#endif
+
+
+void sysExit (lang_t *lang) { exit (lang->update (lang)); }
 
 void sysExec (lang_t *lang) {
-	char *argv[16] = {NULL};	
-	size_t i = 0, argc = (size_t) lang->update (lang); 
+	char *argv[16], *str;
+	size_t argc = 0;
 	
-	for (; i <= argc; i++)
-		argv[i] = (char *) lang->update (lang);
+	str = strtok ((char *) lang->update (lang), " ");
+	for (; str != NULL; argc++) {
+		argv[argc] = str;
+		str = strtok (NULL, " ");
+	}
+
+	argv[argc] = (char *) NULL;
 
 	if (pipefd[0])
 		dup2 (pipefd[1], STDOUT_FILENO);
 
-	ERROR_CHECK (execvp (argv[0], argv))
+	SYSTEM_CHECK (execvp (argv[0], argv))
 }
 
+void sysFork (lang_t *lang) {
+	int status = 0;
 
-size_t sysFork (lang_t *lang) {
-	pid_t pid;
-	
 	signal (SIGCHLD, SIG_IGN);
-	ERROR_CHECK ((pid = fork ()))
 
-	if (!pid) {
+	if (fork () == 0) {
 		lang->update (lang);
-		return (size_t) NULL;
+		return;
 	}
 
+	if (wtrigger) { wtrigger = false; wait (&status); }
 	lang->string->getWord (lang->string, WORD_END);		/* ignore word */
-	return (size_t) pid;
 }
 
+void sysWait (void) { wtrigger = true; }
 
 char *sysPipe (lang_t *lang) {
 	char data[BUFF_SIZE];
 	
-	ERROR_CHECK (pipe (pipefd))
+	SYSTEM_CHECK (pipe (pipefd))
 
 	if (!pipefd[0])
 		return (char *) NULL;
@@ -61,8 +83,12 @@ char *sysPipe (lang_t *lang) {
 	return lang->string->store (lang->string, data);
 }
 
+
 void sysReboot (void) {
-	ERROR_CHECK (reboot (0x4321fedc))
+#ifdef _BSD_SOURCE
+	sync ();
+#endif
+	SYSTEM_CHECK (reboot (0x4321fedc))
 }
 
 void sysMount (lang_t *lang) {
@@ -70,26 +96,19 @@ void sysMount (lang_t *lang) {
 	     *target = (char *) lang->update (lang),
 	     *type = (char *) lang->update (lang);
 
-	ERROR_CHECK (mount (src, target, type, (size_t) NULL, (char *) NULL/*"mode=0700,uid=65534"*/));
+	SYSTEM_CHECK (mount (src, target, type, (size_t) NULL, (char *) NULL));
 }
 
 void sysUnmount (lang_t *lang) {
-	ERROR_CHECK (umount ((char *) lang->update (lang)));
+	SYSTEM_CHECK (umount ((char *) lang->update (lang)));
 }
 
 void sysSymlink (lang_t *lang) {
 	char *base = (char *) lang->update (lang),
 	     *link = (char *) lang->update (lang);
-	ERROR_CHECK (symlink (base, link));
+	SYSTEM_CHECK (symlink (base, link));
 }
 
-void sysSync (lang_t *lang) {
-	char *name = (char *) lang->update (lang);
-	int fd;
-	
-	ERROR_CHECK ((fd = open (name, O_RDONLY)))
-	ERROR_CHECK (fsync (fd));
-}
 
 
 

@@ -38,6 +38,7 @@ char *stringStore (string_t *string, char *str) {
 
 void stringRemove (string_t *string, char *in) {
 	token_t *token = string->find (string, in);
+
 	if (!token) return;
 
 	string->list->remove (string->list, (size_t) token);
@@ -59,7 +60,7 @@ char *stringRead (string_t *string, char *out, char *delim) {
 		*ptr = string->stream->update (string->stream);
 		if (string->charInString (*ptr, delim))
 			break;
-	} *ptr = '\0';
+	} *ptr++ = '\0';
 	return (char *) out;
 }
 

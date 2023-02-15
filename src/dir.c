@@ -17,7 +17,7 @@ void *dirOpen (lang_t *lang) {
 		: (void *) NULL;
 }
 
-void dirClose (lang_t *lang) { ERROR_CHECK (closedir ((DIR *) lang->update (lang))); }
+void dirClose (lang_t *lang) { SYSTEM_CHECK (closedir ((DIR *) lang->update (lang))); }
 char *dirRead (lang_t *lang) { 
 	struct dirent *d = readdir ((DIR *) lang->update (lang));
 	
@@ -26,12 +26,12 @@ char *dirRead (lang_t *lang) {
 		: (char *) NULL;
 }
 
-void dirMake (lang_t *lang) { ERROR_CHECK (mkdir ((char *) lang->update (lang), 0777)); }
+void dirMake (lang_t *lang) { SYSTEM_CHECK (mkdir ((char *) lang->update (lang), 0777)); }
 void dirRemove (lang_t *lang) { 
 	char *name = (char *) lang->update (lang);
-	ERROR_CHECK (rmdir (name));
+	SYSTEM_CHECK (rmdir (name));
 }
-void dirChange (lang_t *lang) { ERROR_CHECK (chdir ((char *) lang->update (lang))); }
+void dirChange (lang_t *lang) { SYSTEM_CHECK (chdir ((char *) lang->update (lang))); }
 char *dirCurrent (lang_t *lang) {
 	char cwd[1024];
 	getcwd (cwd, sizeof (cwd));

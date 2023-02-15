@@ -26,8 +26,8 @@ FILE *fileOpen (lang_t *lang) {
 }
 
 
-void fileClose (lang_t *lang) { ERROR_CHECK (fclose ((FILE *) lang->update (lang))); }
-void fileCreate (lang_t *lang) { ERROR_CHECK (creat ((char *) lang->update (lang), 0777)); }
+void fileClose (lang_t *lang) { SYSTEM_CHECK (fclose ((FILE *) lang->update (lang))); }
+void fileCreate (lang_t *lang) { SYSTEM_CHECK (creat ((char *) lang->update (lang), 0777)); }
 
 char *fileRead (lang_t *lang) {
 	FILE *file = (FILE *) lang->update (lang);
@@ -52,7 +52,7 @@ void fileWrite (lang_t *lang) {
 }
 
 size_t fileAccess (lang_t *lang) { return !access((char *) lang->update (lang), F_OK); }
-void fileRemove (lang_t *lang) { ERROR_CHECK (remove ((char *) lang->update (lang))) }
+void fileRemove (lang_t *lang) { SYSTEM_CHECK (remove ((char *) lang->update (lang))) }
 
 
 #endif

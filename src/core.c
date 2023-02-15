@@ -5,8 +5,23 @@
 
 void coreDefine (lang_t *lang) {
 	char *word = lang->string->getWord (lang->string, WORD_END);
-	lang->dict->set(lang->dict, word, lang->update (lang), data);
+/*	char *word = (char *) lang->update (lang);	*/
+	size_t value = lang->update (lang);
+	lang->dict->set(lang->dict, word, value, data);
 }
+
+
+
+#ifdef LANG_EXTRA
+/* DEPRECATED
+ * Use string concatenation and dynamic replacement instead
+ * ie:	define a 42
+ * 	define b string " a "
+ * 	put b				doesn't work, puts 'a'
+ * 	
+ * 	define c string " put "
+ * 	eval conc c b			puts 42
+ * */
 
 size_t coreValue (lang_t *lang) {
 	pair_t *pair = lang->dict->get (lang->dict, (char *) lang->update (lang));
@@ -14,6 +29,9 @@ size_t coreValue (lang_t *lang) {
 		? pair->value.data
 		: (size_t) NULL;
 }
+#endif
+
+
 
 void coreEval (lang_t *lang) { lang->string->stream->set (lang->string->stream, (char *) lang->update (lang)); }
 
@@ -38,7 +56,10 @@ char *coreInput (lang_t *lang) {
 
 void coreDelete (lang_t *lang) { 	
 	char *word = lang->string->getWord (lang->string, WORD_END);
+	pair_t *pair = lang->dict->get (lang->dict, word);
 
 	lang->dict->remove (lang->dict, word);
 	lang->string->remove (lang->string, word);
+
+	if (pair) lang->string->remove (lang->string, (char *) pair->value.data);
 }

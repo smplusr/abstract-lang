@@ -23,28 +23,30 @@ node_t *listFind (list_t *list, size_t data) {
  * Glitchy infinite linked list 
  * */
 
-void listRemove (list_t *list, size_t data) {	
-	node_t **node = &(list->head);
-	node_t *tmp = NULL;
+#include <stdio.h>
 
-	if ((*node)->data == data) {
-		tmp = (*node)->next;
-		free (*node);
+void listRemove (list_t *list, size_t data) {
+	node_t *node = list->head, *tmp = NULL;
+
+	if (node->data == data) {
+		tmp = node->next;
+		free (node);
 		list->head = tmp;
 		return;
 	}
 		
-	for (; ; (*node) = (*node)->next) {
-		if (!(*node)->next)
+	for (; ; node = node->next) {
+		if (!node->next)
 			return;
-		if ((*node)->next->data == data)
+		if (node->next->data == data)
 			break;
 	}
 
-	tmp = (*node)->next;
-	((*node)->next->next)
-		? ((*node)->next = (*node)->next->next)
-		: ((*node)->next = (node_t *) NULL);
+	tmp = node->next;
+	(node->next->next)
+		? (node->next = node->next->next)
+		: (node->next = (node_t *) NULL);
+
 	free (tmp);
 }
 
