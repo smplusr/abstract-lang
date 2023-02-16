@@ -19,6 +19,10 @@ Not all utilities should be built into the language, but only the basic system f
 
 The language inner working is fairly simple. Instead of denoting function application whith parenthesis, juxtaposition is used.
 For instance, one may think of function application like this: a(b(c)), or a->b->c. In this language, it works like this: a b c.
+This can be seen as a sort of "reverse" concatenation, or concatenation using polish (or prefix) notation.
+This is not concatenation, however, since operation is not done on the same data all the time.
+Concatenative languages most often use an underlying datastructure such as a stack in order to keep data between function calls.
+
 A program is the application of functions (procedures or instructions), constituing computation.
 The program can be provided as a stream of characters (naming functions or data), which should be interpreted or compiled given a language implementation.
 A user defined function or procedure is simply a sub-program or stream. This stream can be analyzed and executed inside of the main program.
