@@ -121,7 +121,8 @@ lang_t *Lang () {
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "exec"), (size_t) sysExec, func);
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "fork"), (size_t) sysFork, func);
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "wait"), (size_t) sysWait, func);
-	lang->dict->set (lang->dict, lang->string->store (lang->string, "pipe"), (size_t) sysPipe, func);	
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "pipe"), (size_t) sysPipe, func);
+	lang->dict->set (lang->dict, lang->string->store (lang->string, "kill"), (size_t) sysKill, func);
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "reboot"), (size_t) sysReboot, func);
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "mount"), (size_t) sysMount, func);
 	lang->dict->set (lang->dict, lang->string->store (lang->string, "umount"), (size_t) sysUnmount, func);

@@ -52,18 +52,21 @@ void sysExec (lang_t *lang) {
 	SYSTEM_CHECK (execvp (argv[0], argv))
 }
 
-void sysFork (lang_t *lang) {
+size_t sysFork (lang_t *lang) {
+	size_t pid;
 	int status = 0;
 
 	signal (SIGCHLD, SIG_IGN);
 
-	if (fork () == 0) {
+	if ((pid = fork ()) == 0) {
 		lang->update (lang);
-		return;
+		return (size_t) NULL;
 	}
 
 	if (wtrigger) { wtrigger = false; wait (&status); }
 	lang->string->getWord (lang->string, WORD_END);		/* ignore word */
+
+	return pid;
 }
 
 void sysWait (void) { wtrigger = true; }
@@ -82,6 +85,12 @@ char *sysPipe (lang_t *lang) {
 	close (pipefd[0]); close (pipefd[1]);
 	return lang->string->store (lang->string, data);
 }
+
+
+void sysKill (lang_t *lang) {
+	pid_t pid = (pid_t) lang->update (lang);
+	if (pid) kill (pid, SIGSEGV);
+} 
 
 
 void sysReboot (void) {

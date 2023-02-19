@@ -51,7 +51,9 @@ char *coreInput (lang_t *lang) {
 	str = lang->string->getWord (lang->string, "\n");
 	lang->string->stream->set (lang->string->stream, ptr);
 
-	return str;
+	return (!*str)
+		? (char *) NULL
+		: str;
 }
 
 void coreDelete (lang_t *lang) { 	
