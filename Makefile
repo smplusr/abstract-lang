@@ -4,20 +4,13 @@
 # 		MODULES=<anything else> compiles only core modules
 # Default:	LANG_ALL
 
-
-DEBUG	:= -DDEBUG_LANG		\
-	   -DDEBUG_DICT		\
-	   -DDEBUG_STRING	\
-	   -DDEBUG_STREAM	\
-	   -DDEBUG_CALL		\
-
-MODULES	:= LANG_ALL
-CFLAGS	:= -Wall -Wextra -Werror -static -ansi -pedantic -O2 -D$(MODULES) -D_DEFAULT_SOURCE
+#MODULES	:= -DLANG_ALL
 
 
 
 
 CC	:= cc
+CFLAGS	:= -Wall -Wextra -Werror -static -ansi -pedantic -O2 -D_DEFAULT_SOURCE -DLANG_ALL
 SOURCE	:= src
 TARGET	:= $(SOURCE)/main.elf
 

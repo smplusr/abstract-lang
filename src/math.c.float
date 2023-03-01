@@ -1,0 +1,68 @@
+#include "include.h"
+
+
+
+
+double MathFloat (void *a) {
+	double b; assign (b, a);
+	return b;
+}
+
+void *MathInt (double a) {
+	void *b; assign (b, a);
+	return b;
+}
+
+void *MathAdd (lang_t *lang) {
+	double a; size_t b;
+	a = MathFloat (lang->update (lang)) + MathFloat (lang->update (lang));
+	assign (b, a);
+	return (void *) b;
+}
+
+void *MathSub (lang_t *lang) {	
+	double a; size_t b;
+	a = MathFloat (lang->update (lang)) - MathFloat (lang->update (lang));
+	assign (b, a);
+	return (void *) b;
+}
+
+void *MathMul (lang_t *lang) {
+	double a; size_t b;
+	a = MathFloat (lang->update (lang)) * MathFloat (lang->update (lang));
+	assign (b, a);
+	return (void *) b;
+}
+
+void *MathDecimal (lang_t *lang) {
+	double a; size_t b;
+	sscanf ((char *) lang->update (lang), "%lf", &a);
+	assign (b, a);
+	return (void *) b;
+}
+
+char *MathChar (lang_t *lang) {
+	char *a = (char *) malloc ((sizeof (double) + 1) * sizeof (char));
+	sprintf (a, "%f", MathFloat (lang->update (lang)));
+	return lang->store (lang, a);
+}
+
+
+
+
+
+/*
+void * MathDecimal (lang_t *lang) {
+	void * a = 0; sscanf ((char *) (size_t) lang->update (lang), "%ld", &a);
+	return a;
+}
+
+char *MathChar (lang_t *lang) {
+	char *a = (char *) malloc ((sizeof (void *) + 1) * sizeof (char));
+	sprintf (a, "%d", lang->update (lang));
+	return lang->store (lang, a);
+}
+
+void * MathAdd (lang_t *lang) { return ((long) lang->update (lang) + (long) lang->update (lang)); }
+void * MathMul (lang_t *lang) { return ((long) lang->update (lang) * (long) lang->update (lang)); }
+*/
